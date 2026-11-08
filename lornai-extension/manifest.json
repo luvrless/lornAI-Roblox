@@ -45,6 +45,23 @@
   "content_scripts": [
     {
       "matches": [
+        "https://lorn.lol/*",
+        "https://*.lornai.pages.dev/*",
+        "https://lornai.pages.dev/*"
+      ],
+      "js": [
+        "core/config.js",
+        "core/parser.js",
+        "providers/lorn.js",
+        "core/main.js"
+      ],
+      "css": [
+        "overlay.css"
+      ],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": [
         "https://chat.deepseek.com/*"
       ],
       "js": [
