@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>lornAI × Roblox Studio Bridge</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      width: 290px;
+      margin: 0;
+      padding: 0;
+      font-family: "Plus Jakarta Sans", -apple-system, sans-serif;
+      background: radial-gradient(circle at 50% 0%, #1a1614 0%, #0d0c0b 80%, #050505 100%);
+      color: #f3efe6;
+      font-size: 13px;
+      overflow-x: hidden;
+    }
+    .wrap {
+      padding: 18px 16px 16px;
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+    .logo-icon {
+      width: 26px;
+      height: 26px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(217, 119, 87, 0.12);
+      border: 1px solid rgba(217, 119, 87, 0.3);
+      border-radius: 8px;
+    }
+    .logo-icon svg {
+      animation: spinSlow 14s linear infinite;
+    }
+    @keyframes spinSlow {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    .title-box {
+      display: flex;
+      flex-direction: column;
+    }
+    .title {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: 19px;
+      font-weight: 400;
+      line-height: 1.1;
+      color: #f3efe6;
+      letter-spacing: -0.01em;
+    }
+    .ver-badge {
+      font-size: 10px;
+      color: #d97757;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 500;
+      margin-top: 1px;
+    }
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 8px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 999px;
+      font-size: 10.5px;
+      color: #b3aca2;
+    }
+    .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #736d65;
+      flex: none;
+    }
+    .dot.on {
+      background: #34d399;
+      box-shadow: 0 0 8px rgba(52, 211, 153, 0.8);
+    }
+    .dot.warn {
+      background: #d97757;
+      box-shadow: 0 0 8px rgba(217, 119, 87, 0.8);
+    }
+    .card {
+      background: rgba(255, 255, 255, 0.035);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 12px;
+      padding: 11px 12px;
+      margin-bottom: 12px;
+      backdrop-filter: blur(12px);
+    }
+    .state-row {
+      font-size: 12px;
+      color: #e5ded5;
+      font-weight: 500;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .tools-row {
+      font-size: 11.5px;
+      color: #a8a196;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .servers-row {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.5px;
+      color: #8c857b;
+      margin-top: 6px;
+      white-space: pre-line;
+      line-height: 1.4;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 6px;
+    }
+    .actions-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+    button {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 9px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 500;
+      font-family: inherit;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      transition: all 0.16s ease;
+    }
+    .btn-ghost {
+      background: rgba(255, 255, 255, 0.04);
+      color: #e6dfd5;
+    }
+    .btn-ghost:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.16);
+      color: #ffffff;
+    }
+    .btn-lorn {
+      background: linear-gradient(135deg, rgba(217, 119, 87, 0.22), rgba(217, 119, 87, 0.08));
+      color: #f7b297;
+      border-color: rgba(217, 119, 87, 0.35);
+      font-weight: 600;
+    }
+    .btn-lorn:hover {
+      background: linear-gradient(135deg, rgba(217, 119, 87, 0.32), rgba(217, 119, 87, 0.15));
+      border-color: rgba(217, 119, 87, 0.55);
+      color: #ffd8cc;
+      box-shadow: 0 0 14px rgba(217, 119, 87, 0.2);
+    }
+    .supported-sites {
+      margin-top: 12px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      font-size: 11px;
+      color: #8c857b;
+      line-height: 1.45;
+    }
+    .supported-sites b {
+      color: #d97757;
+      font-weight: 600;
+    }
+    code {
+      background: rgba(255, 255, 255, 0.07);
+      padding: 1px 4px;
+      border-radius: 4px;
+      color: #e5ded5;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="header">
+      <div class="brand">
+        <div class="logo-icon">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#d97757" stroke-width="2.2">
+            <path d="M12 2v20M2 12h20M4.93 4.93l14.14 14.14M4.93 19.07L19.07 4.93"/>
+          </svg>
+        </div>
+        <div class="title-box">
+          <span class="title">lornAI</span>
+          <span class="ver-badge" id="ver">v1.0.0</span>
+        </div>
+      </div>
+      <div class="status-pill">
+        <span id="dot" class="dot"></span>
+        <span id="pillText">Bridge</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="state-row" id="state">Bridge: Checking…</div>
+      <div class="tools-row" id="tools">Scanning Roblox MCP…</div>
+      <div class="servers-row" id="servers"></div>
+    </div>
+
+    <div class="actions-grid">
+      <button class="btn-ghost" id="reconnect">
+        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.3"/></svg>
+        Reconnect Bridge
+      </button>
+      <button class="btn-ghost" id="restart">
+        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+        Restart Roblox Server
+      </button>
+      <button class="btn-ghost" id="settings">
+        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        Agent Settings
+      </button>
+            <button class="btn-ghost" id="telegramBtn" style="border-color: rgba(0, 136, 204, 0.3); color: #64b5f6;">
+        <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.75-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
+        Telegram (t.me/logmade)
+      </button>
+      <button class="btn-lorn" id="lornPortal">
+        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        Open lornAI Web Platform
+      </button>
+    </div>
+
+    <div class="supported-sites">
+      Run <code>start.bat</code> and load <b>Roblox Studio</b>. Supported on <b>lornAI</b>, <b>ChatGPT</b>, <b>Claude</b>, <b>DeepSeek</b>, <b>Gemini</b>, and <b>Qwen</b>.
+    </div>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
