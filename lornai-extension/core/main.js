@@ -78,19 +78,19 @@
     }, EXPECT);
   }
 
-  // Ko-fi tip link.
-  const KOFI_URL = "https://ko-fi.com/sebattfg";
+  // Telegram community link.
+  const KOFI_URL = "https://t.me/logmade";
   // GitHub releases page - where users download the Bridge + start.bat.
-  const GITHUB_URL = "https://github.com/sebattfg/lornAI-Roblox";
+  const GITHUB_URL = "https://github.com/luvrless/lornAI-Roblox";
   // Shown in the panel instead of a static "Free" label, so a user's screenshot
   // alone tells us which build they're on for debugging. Pulled from
   // manifest.json (single source of truth) rather than duplicated here.
   const EXT_VERSION = chrome.runtime.getManifest().version;
-  // YouTube tutorial - how to set up the Bridge.
+  // Setup video link (disabled).
   const VIDEO_URL = "";
-  // Work.ink locked link - free "watch an ad" support option. Set once the
-  // locker is created at https://work.ink; the button is hidden until then.
-  const WORKINK_URL = "https://work.ink/2JXi/lornai-free-roblox-ai-coding-tool";
+  // Support options.
+  // locker is created at ; the button is hidden until then.
+  const WORKINK_URL = "";
   // Roblox "tip" Game Passes - the native currency for the audience.
   const ROBUX_PASSES = [
     { robux: 30, id: 1865342947 },
@@ -2772,8 +2772,8 @@
            ${WORKINK_URL ? `<button class="zs-tip-opt zs-tip-ad" data-u="${WORKINK_URL}"><span>Watch an ad to support</span><span class="zs-tip-sub">free, takes a minute</span></button>` : ""}
          </section>
          <section class="zs-menu-sec">
-           <div class="zs-sec-label"><span>Support with Robux / Ko-fi</span></div>
-           <button class="zs-tip-opt zs-tip-kofi" data-u="${KOFI_URL}"><span>Tip on Ko-fi</span><span class="zs-tip-sub">any amount</span></button>
+           <div class="zs-sec-label"><span>Community & Support</span></div>
+           <button class="zs-tip-opt zs-tip-kofi" data-u="${KOFI_URL}"><span>Telegram Community</span><span class="zs-tip-sub">t.me/logmade</span></button>
            <div class="zs-tip-sep">or tip in Robux</div>
            <div class="zs-rbx-grid">${passes}</div>
          </section>
